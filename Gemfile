@@ -11,16 +11,16 @@ gem "puma", ">= 5.0"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
-gem 'jwt'
+gem "jwt"
 
 # 環境変数管理
-gem 'dotenv-rails', groups: [:development, :test]
+gem "dotenv-rails", groups: [ :development, :test ]
 
 # ページネーション
-gem 'kaminari'
+gem "kaminari"
 
 # JSON シリアライザー
-gem 'active_model_serializers'
+gem "active_model_serializers"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
