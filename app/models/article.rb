@@ -1,4 +1,4 @@
 class Article < ApplicationRecord
   enum :status, { draft: 0, published: 1 }
-  validate :title, presence: true
+  validates :title, presence: true
 end
