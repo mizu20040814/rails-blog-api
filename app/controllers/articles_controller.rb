@@ -1,5 +1,4 @@
 class ArticlesController < ApplicationController
-
   # GET /articles
   def index
     @articles = Article.all
@@ -44,5 +43,4 @@ class ArticlesController < ApplicationController
   def article_params
     params.require(:article).permit(:title, :content)
   end
-
 end
