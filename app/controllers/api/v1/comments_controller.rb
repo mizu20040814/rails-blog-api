@@ -1,12 +1,12 @@
 class Api::V1::CommentsController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :destroy]
-  before_action :set_article, only: [:index, :create]
-  before_action :set_comment, only: [:destroy]
+  before_action :authenticate_user!, only: [ :create, :destroy ]
+  before_action :set_article, only: [ :index, :create ]
+  before_action :set_comment, only: [ :destroy ]
 
   # GET /api/v1/articles/:article_id/comments
   def index
     @comments = @article.comments.includes(:user).order(created_at: :desc)
-    render json: @comments.map { |c| comment_response(c) }  
+    render json: @comments.map { |c| comment_response(c) }
   end
 
   # POST /api/v1/articles/:article_id/comments
@@ -32,7 +32,7 @@ class Api::V1::CommentsController < ApplicationController
   end
 
   private
-  
+
   def set_article
     @article = Article.find(params[:article_id])
   end
@@ -48,7 +48,7 @@ class Api::V1::CommentsController < ApplicationController
   def authenticate_user!
     token = request.headers["Authorization"]&.split(" ")&.last
     begin
-      decorded = JWT.decode(token, ENV["JWT_SECRET_KEY"], true, algorithm:"HS256")
+      decorded = JWT.decode(token, ENV["JWT_SECRET_KEY"], true, algorithm: "HS256")
       @current_user = User.find(decorded[0]["user_id"])
     rescue JWT::DecodeError, ActiveRecord::RecordNotFound
       render json: { error: "Unauthorized" }, status: :unauthorized
@@ -66,5 +66,4 @@ class Api::V1::CommentsController < ApplicationController
       created_at: comment.created_at
     }
   end
-    
 end

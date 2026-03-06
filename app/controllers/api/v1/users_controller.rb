@@ -1,5 +1,4 @@
 class Api::V1::UsersController < ApplicationController
-
   # POST /api/v1/users/register
   def register
     @user = User.new(user_params)
@@ -7,7 +6,7 @@ class Api::V1::UsersController < ApplicationController
       token = generate_jwt(@user)
       render json: { user: user_response(@user), token: token }, status: :created
     else
-      render json: { errors:@user.errors },status: :unprocessable_entity
+      render json: { errors: @user.errors }, status: :unprocessable_entity
     end
   end
 
@@ -17,12 +16,12 @@ class Api::V1::UsersController < ApplicationController
 
     if @user&.authenticate(params[:password])
       token = generate_jwt(@user)
-      render json: { user:user_response(@user),token:token }
+      render json: { user: user_response(@user), token: token }
     else
-      render json:{ error:'Invalid email or password' }, status: :unauthorized
+      render json: { error: "Invalid email or password" }, status: :unauthorized
     end
   end
-  
+
   private
 
   def user_params
@@ -30,11 +29,11 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def generate_jwt(user)
-    payload = { 
+    payload = {
       user_id: user.id,
       exp: 24.hours.from_now.to_i
     }
-    JWT.encode(payload, ENV['JWT_SECRET_KEY'], 'HS256')
+    JWT.encode(payload, ENV["JWT_SECRET_KEY"], "HS256")
   end
 
   def user_response(user)
@@ -44,5 +43,4 @@ class Api::V1::UsersController < ApplicationController
       email: user.email
     }
   end
-
 end

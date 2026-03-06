@@ -6,8 +6,8 @@ Rails.application.routes.draw do
       post "auth/login", to: "auth#login"
 
       # *user_auth :new!
-      post 'users/register', to: 'users#register'
-      post 'users/login', to: 'users#login'
+      post "users/register", to: "users#register"
+      post "users/login", to: "users#login"
 
       # 公開URL
       # TODO: Comments処理を追加する
