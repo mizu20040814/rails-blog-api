@@ -5,8 +5,16 @@ Rails.application.routes.draw do
       # Auth
       post "auth/login", to: "auth#login"
 
+      # *user_auth :new!
+      post 'users/register', to: 'users#register'
+      post 'users/login', to: 'users#login'
+
       # 公開URL
-      resources :articles, only: [ :index, :show ]
+      # TODO: Comments処理を追加する
+      resources :articles, only: [ :index, :show ] do
+        resources :comments, only: [ :index, :create ]
+      end
+      resources :comments, only: [ :destroy ]
 
       # 認証後のURL
       namespace :admin do
