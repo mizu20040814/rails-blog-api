@@ -14,7 +14,9 @@ Rails.application.routes.draw do
       resources :articles, only: [ :index, :show ] do
         resources :comments, only: [ :index, :create ]
       end
-      resources :comments, only: [ :destroy ]
+      resources :comments, only: [ :destroy ] do
+        resources :like, only: [ :create, :destroy ]
+      end
 
       # 認証後のURL
       namespace :admin do

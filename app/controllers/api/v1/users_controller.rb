@@ -12,7 +12,7 @@ class Api::V1::UsersController < ApplicationController
 
   # POST /api/v1/users/login
   def login
-    @user = User.find(email: params[:email])
+    @user = User.find_by(email: params[:email])
 
     if @user&.authenticate(params[:password])
       token = generate_jwt(@user)
